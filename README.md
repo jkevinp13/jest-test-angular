@@ -25,3 +25,61 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
+## Migrate Jest
+
+1. Remove Karma related stuff:
+npm remove karma karma-chrome-launcher karma-coverage karma-jasmine karma-jasmine-html-reporter
+
+
+rm ./karma.conf.js ./src/test.ts
+
+2. Install @angular-builders/jest and jest:
+
+npm i -D jest @types/jest @angular-builders/jest
+
+3. Update your Typescript configurations:
+
+In tsconfig.spec.json (root directory or project roots, used by Jest):
+
+- Replace jasmine in types array with jest
+You want your tests to be type-checked against Jest typings and not Jasmine
+- Remove test.ts from files array
+This file was responsible for Karma setup, you don’t need it here anymore
+- Add emitDecoratorMetadata: true in compilerOptions (here is why you need this)
+
+4. In angular.json change @angular-devkit/build-angular:karma to @angular-builders/jest:run :
+
+```
+"projects": {
+    ...
+    "[your-project]": {
+         ...
+         "architect": {
+                ...
+                "test": {
+                          "builder": "@angular-builders/jest:run"
+                          "options": {
+                                ... //see here
+                          }
+```
+
+5. Add jest.config.js
+
+```
+const path = require('path');
+const rootDir = path.join(__dirname);
+module.exports = {
+    preset: 'jest-preset-angular',
+    setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
+    transform: {
+      '^.+\\.(ts|js|html)$': ['ts-jest', {
+        tsconfig: '<rootDir>/tsconfig.spec.json',
+      }]
+    },
+    testMatch: ['<rootDir>/src/**/*.spec.ts'],
+    testPathIgnorePatterns: ['<rootDir>/node_modules/'],
+    coverageReporters: ['html', 'lcov', 'text'],
+  };
+```
