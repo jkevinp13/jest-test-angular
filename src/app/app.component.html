@@ -1,2 +1,14 @@
 <h1>Unit  Test </h1>
-<router-outlet></router-outlet>
+<article>
+
+    <nav>
+        <ul>
+            <li [routerLink]="'/'" >home</li>
+            <!-- <li [routerLink]="'/counter'" >counter</li> -->
+            <li [routerLink]="'/charizard'" >charizard</li>
+        </ul>
+    </nav>
+    <section>
+        <router-outlet></router-outlet>
+    </section>
+</article>
