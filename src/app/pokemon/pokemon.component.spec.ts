@@ -55,7 +55,9 @@ describe('PokemonComponent', () => {
       },
     };
 
-    const request = httpMock.expectOne('https://pokeapi.co/api/v2/pokemon/6');
+    const request = httpMock.expectOne(
+      'https://run.mocky.io/v3/0b9c5279-3cf7-42ed-9078-0c5d3a114ad0',
+    );
     expect(request.request.method).toBe('GET');
     request.flush(dummyPokemon);
 

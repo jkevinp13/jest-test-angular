@@ -20,7 +20,7 @@ describe('PokemonService', () => {
   it('debe de traer información de bulbasaur', (done) => {
     service.getPokemon(1).subscribe((pokemon) => {
       // console.log(pokemon);
-      expect(pokemon.name).toBe('charrizar');
+      expect(pokemon.name).toBe('charrizard');
 
       done();
     });
