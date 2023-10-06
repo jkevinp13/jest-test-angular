@@ -5,5 +5,13 @@ module.exports = {
   setupFilesAfterEnv: ["<rootDir>/setup-jest.ts"],
   testMatch: ["<rootDir>/src/**/*.spec.ts"],
   testPathIgnorePatterns: ["<rootDir>/node_modules/"],
+  collectCoverage: true,
   coverageReporters: ["html", "lcov", "text"],
+  reporters: [
+    "default",
+    [
+      "jest-html-reporters",
+      { publicPath: "./coverage3/", fileName: "reporters-jest.html" },
+    ],
+  ],
 };

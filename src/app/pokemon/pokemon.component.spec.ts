@@ -4,28 +4,28 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 
-import { CharizardComponent } from './charizard.component';
+import { PokemonComponent } from './pokemon.component';
 import { PokemonService } from '../services/pokemon.service';
 import { of } from 'rxjs';
 import { Pokemon } from '../interfaces/pokemon.interface';
 
-describe('CharizardComponent', () => {
-  let component: CharizardComponent;
-  let fixture: ComponentFixture<CharizardComponent>;
+describe('PokemonComponent', () => {
+  let component: PokemonComponent;
+  let fixture: ComponentFixture<PokemonComponent>;
   let compiled: HTMLElement;
   let service: PokemonService;
   let httpMock: HttpTestingController;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CharizardComponent],
+      declarations: [PokemonComponent],
       imports: [HttpClientTestingModule],
       providers: [PokemonService],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CharizardComponent);
+    fixture = TestBed.createComponent(PokemonComponent);
     component = fixture.componentInstance;
     service = TestBed.inject(PokemonService);
     httpMock = TestBed.inject(HttpTestingController);
@@ -34,20 +34,20 @@ describe('CharizardComponent', () => {
     compiled = fixture.nativeElement;
   });
 
-  test('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  test('debe de hacer match con el snapshot', () => {
+  it('debe de hacer match con el snapshot', () => {
     expect(compiled.innerHTML).toMatchSnapshot();
   });
 
-  test('debe de mostrar un loading al inicio', () => {
+  it('debe de mostrar un loading al inicio', () => {
     const h2 = compiled.querySelector('h2');
     expect(h2?.textContent).toContain('Loading...');
   });
 
-  test('debe de cargar a charizard inmediatamente', () => {
+  it('debe de cargar a charizard inmediatamente', () => {
     const dummyPokemon = {
       name: 'charizardo!!',
       sprites: {
@@ -70,7 +70,8 @@ describe('CharizardComponent', () => {
     expect(img?.src).toBe(dummyPokemon.sprites.front_default);
     expect(img?.alt).toBe(dummyPokemon.name);
   });
-  test('debe de cargar a charizard inmediatamente con jestSpyOn', () => {
+
+  it('debe de cargar a charizard inmediatamente con jestSpyOn', () => {
     const dummyPokemon = {
       name: 'charizardo!!',
       sprites: {
@@ -78,17 +79,16 @@ describe('CharizardComponent', () => {
       },
     };
     const spyService = jest
-      .spyOn((component as any).pokemonService, 'getPokemon')
+      .spyOn(service, 'getPokemon')
       .mockReturnValue(of(dummyPokemon as Pokemon));
-
     component.ngOnInit();
 
     fixture.detectChanges();
-    expect(spyService).toHaveBeenCalledWith(6);
     // console.log(compiled.innerHTML);
     const h3 = compiled.querySelector('h3');
     const img = compiled.querySelector('img');
 
+    expect(spyService).toHaveBeenCalledWith(6);
     expect(h3?.textContent?.toLocaleLowerCase()).toContain(
       dummyPokemon.name.toLocaleLowerCase(),
     );

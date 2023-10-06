@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PokemonComponent debe de hacer match con el snapshot 1`] = `
+"<section class="bc-bg-brand-complementary-03 bc-m-4"><h1 class="bc-text-center">Pokémon</h1><div><h2 class="bc-text-center">Loading...</h2></div><!--bindings={
+  "ng-reflect-ng-if-else": "[object Object]"
+}--><!--container--></section>"
+`;

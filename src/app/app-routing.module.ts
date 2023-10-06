@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CharizardComponent } from './charizard/charizard.component';
+import { PokemonComponent } from './pokemon/pokemon.component';
 import { CounterComponent } from './counter/counter.component';
 
 const routes: Routes = [
@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'charizard',
-    component: CharizardComponent,
+    component: PokemonComponent,
   },
 ];
 

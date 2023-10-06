@@ -3,20 +3,20 @@ import { Pokemon } from '../interfaces/pokemon.interface';
 import { PokemonService } from '../services/pokemon.service';
 
 @Component({
-  selector: 'app-charizard',
-  templateUrl: './charizard.component.html',
-  styleUrls: ['./charizard.component.scss'],
+  selector: 'app-pokemon',
+  templateUrl: './pokemon.component.html',
+  styleUrls: ['./pokemon.component.scss'],
 })
-export class CharizardComponent {
-  public charizard?: Pokemon;
+export class PokemonComponent {
+  public pokemon?: Pokemon;
 
   constructor(private pokemonService: PokemonService) {}
 
   ngOnInit(): void {
     this.pokemonService.getPokemon(6).subscribe({
       next: (pokemon) => {
-        this.charizard = pokemon;
-        console.log(pokemon);
+        this.pokemon = pokemon;
+        // console.log(pokemon);
       },
       error: console.log,
     });

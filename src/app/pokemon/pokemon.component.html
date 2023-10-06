@@ -1,0 +1,11 @@
+<section class="bc-bg-brand-complementary-03 bc-m-4">
+    <h1 class="bc-text-center">Pokémon</h1>
+<div *ngIf="!pokemon; else elseBlock">
+    <h2 class="bc-text-center">Loading...</h2>
+</div>
+
+<ng-template #elseBlock>
+    <h3 >{{ pokemon?.name | titlecase  }}</h3>
+    <img  [src]="pokemon?.sprites?.front_default" [alt]="pokemon?.name">
+</ng-template>
+</section>
